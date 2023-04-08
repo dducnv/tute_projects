@@ -5,9 +5,9 @@
 #       url: jdbc:mysql://127.0.0.1:3306/tim_do?createDatabaseIfNotExist=true
 #       username: root
 #       password:
-       url: jdbc:mysql://aws.connect.psdb.cloud/tute_project?ssl={"rejectUnauthorized":true}
-       username: f5ce7eg7stgvpi84blap
-       password: pscale_pw_FwzYMPceA4UU9wtExpYIrROy35OgMuw08blIoC2USLy
+       url: jdbc:mysql:/tcp.appengine.bfcplatform.vn:22492/tute_project?createDatabaseIfNotExist=true
+       username: root
+       password: 
        driverClassName: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:
