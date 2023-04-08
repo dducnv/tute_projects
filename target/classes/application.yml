@@ -7,7 +7,7 @@
 #       password:
        url: jdbc:mysql:/tcp.appengine.bfcplatform.vn:22492/tute_project?createDatabaseIfNotExist=true
        username: root
-       password: 
+       password:
        driverClassName: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:

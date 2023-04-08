@@ -14,11 +14,16 @@ import java.util.List;
 public class DatabaseSeeder {
     @Autowired
     RoleRepository roleRepository;
+
     @EventListener
     public void seed(ContextRefreshedEvent event) {
         seedRoleTable();
     }
+
     private void seedRoleTable() {
+        Role roleU = roleRepository.findByRoleName("USER");
+        Role roleA = roleRepository.findByRoleName("ADMIN");
+        Role roleSA = roleRepository.findByRoleName("SUPER_ADMIN");
         Role role1 = new Role();
         Role role2 = new Role();
         Role role3 = new Role();
@@ -27,9 +32,15 @@ public class DatabaseSeeder {
         role3.setRoleName("SUPER_ADMIN");
 
         List<Role> roles = new ArrayList<>();
-        roles.add(role1);
-        roles.add(role2);
-        roles.add(role3);
+        if (roleU.getRoleName().isEmpty()) {
+            roles.add(role1);
+        }
+        if (roleA.getRoleName().isEmpty()) {
+            roles.add(role2);
+        }
+        if (roleSA.getRoleName().isEmpty()) {
+            roles.add(role3);
+        }
         roleRepository.saveAll(roles);
     }
 }
