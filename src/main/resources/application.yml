@@ -6,8 +6,8 @@
 #       username: root
 #       password:
        url: jdbc:mysql://aws.connect.psdb.cloud/tute_project?ssl={"rejectUnauthorized":true}
-       username: p1st3kwbn93rsazs90d8
-       password: pscale_pw_6GbaISmRuJdDihOZPFtZPtXPbYBOSwbiVK9I4kiViAK
+       username: f5ce7eg7stgvpi84blap
+       password: pscale_pw_FwzYMPceA4UU9wtExpYIrROy35OgMuw08blIoC2USLy
        driverClassName: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:
