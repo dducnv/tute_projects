@@ -5,9 +5,9 @@
 #       url: jdbc:mysql://127.0.0.1:3306/tim_do?createDatabaseIfNotExist=true
 #       username: root
 #       password:
-       url: jdbc:mysql://aws.connect.psdb.cloud/tute_project?sslMode=VERIFY_IDENTITY
-       username: 1nqzwfglzgwbmbazuu4u
-       password: pscale_pw_sa7mjaHRkkzj0BK4Y9lYYLGQABIG5Q3DoqlHy1t7lie
+       url: jdbc:mysql:/tcp.appengine.bfcplatform.vn:22492/tute_project?createDatabaseIfNotExist=true
+       username: root
+       password:
        driverClassName: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:
@@ -29,7 +29,7 @@
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   security:
     oauth2:
       client:
