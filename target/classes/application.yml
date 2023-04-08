@@ -26,10 +26,10 @@
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
   security:
     oauth2:
       client:
