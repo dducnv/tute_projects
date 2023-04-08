@@ -2,6 +2,7 @@ package com.example.backend.utils.seeder;
 
 import com.example.backend.entity.Role;
 import com.example.backend.repository.RoleRepository;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DatabaseSeeder {
@@ -21,26 +23,17 @@ public class DatabaseSeeder {
     }
 
     private void seedRoleTable() {
-        Role roleU = roleRepository.findByRoleName("USER");
-        Role roleA = roleRepository.findByRoleName("ADMIN");
-        Role roleSA = roleRepository.findByRoleName("SUPER_ADMIN");
-        Role role1 = new Role();
-        Role role2 = new Role();
-        Role role3 = new Role();
-        role1.setRoleName("USER");
-        role2.setRoleName("ADMIN");
-        role3.setRoleName("SUPER_ADMIN");
+        Optional<Role> roleU = Optional.ofNullable(roleRepository.findByRoleName("USER"));
+        Optional<Role> roleA = Optional.ofNullable(roleRepository.findByRoleName("ADMIN"));
 
-        List<Role> roles = new ArrayList<>();
-        if (roleU.getRoleName().isEmpty()) {
-            roles.add(role1);
+        if(!roleU.isPresent()){
+            Role role1 = new Role();
+            role1.setRoleName("USER");
         }
-        if (roleA.getRoleName().isEmpty()) {
-            roles.add(role2);
+        if(!roleA.isPresent()){
+            Role role2 = new Role();
+            role2.setRoleName("ADMIN");
+            roleRepository.save(role2);
         }
-        if (roleSA.getRoleName().isEmpty()) {
-            roles.add(role3);
-        }
-        roleRepository.saveAll(roles);
     }
 }
