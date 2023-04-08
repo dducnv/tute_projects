@@ -37,14 +37,14 @@
           google:
             clientId: 231594476721-09kl84i5027sobd67pnnmk5fke1hetfi.apps.googleusercontent.com
             clientSecret: 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
-            redirectUri: "http://localhost:8080/oauth2/callback/{registrationId}"
+            redirectUri: "https://api-timdothatlac-enhfj.appengine.bfcplatform.vn/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
             clientId: 743050937261336
             clientSecret: 6978c5d20c9fad8cac6042989ffa4e48
-            redirectUri: "/oauth2/callback/{registrationId}"
+            redirectUri: "https://api-timdothatlac-enhfj.appengine.bfcplatform.vn/oauth2/callback/{registrationId}"
             scope:
               - email
               - public_profile
@@ -63,9 +63,4 @@
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - https://www.itforum.site/api/oauth2/redirect
-      - https://itcomm.onrender.com/api/oauth2/redirect
-      - https://it-forums.vercel.app/api/oauth2/redirect
       - http://localhost:3000/api/oauth2/redirect
-      - myandroidapp://oauth2/redirect
-      - myiosapp://oauth2/redirect
