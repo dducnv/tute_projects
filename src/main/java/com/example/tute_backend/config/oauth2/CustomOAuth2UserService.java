@@ -9,11 +9,13 @@ import com.example.tute_backend.entity.my_enum.UserStatus;
 import com.example.tute_backend.exception.OAuth2AuthenticationProcessingException;
 import com.example.tute_backend.repository.RoleRepository;
 import com.example.tute_backend.repository.UserRepository;
+import com.example.tute_backend.utils.GeneratingPassword;
 import com.example.tute_backend.utils.SlugGenerating;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -34,6 +36,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
     public static final Pattern STUDENT_FPT_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Za-z0-9._%+-]+@fpt.edu.vn$", Pattern.CASE_INSENSITIVE);
 
@@ -89,6 +94,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(oAuth2UserInfo.getId()+oAuth2UserInfo.getEmail()));
         user.setStatus(UserStatus.ACTIVE);
         Role role = roleRepository.findByRoleName("USER");
         Set<Role> roleSet = new HashSet<>();
