@@ -97,6 +97,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             role = roleRepository.findByRoleName("ADMIN");
             roleSet.add(role);
         }
+        user.setRoles(roleSet);
         return userRepository.save(user);
     }
 

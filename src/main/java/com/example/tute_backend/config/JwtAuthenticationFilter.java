@@ -1,5 +1,7 @@
 package com.example.tute_backend.config;
 
+import com.example.tute_backend.service.UserService;
+import com.example.tute_backend.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
