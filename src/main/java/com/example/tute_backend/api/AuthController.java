@@ -2,6 +2,7 @@ package com.example.tute_backend.api;
 
 import com.example.tute_backend.config.TokenProvider;
 import com.example.tute_backend.dto.*;
+import com.example.tute_backend.entity.User;
 import com.example.tute_backend.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,11 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = PREFIX_MY_INFO, method = RequestMethod.GET)
     public ResponseEntity<?> myInfo() {
-        UserInfoDto userInfoDto = userService.myInfo();
-        return ResponseEntity.ok(
-                ApiResDto.builder()
-                        .message("Thành công!")
-                        .data(userInfoDto)
-                        .build()
-        );
+        User user = userService.getUserFromToken();
+        return  ResponseEntity.ok(user);
     }
 
 }

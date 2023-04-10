@@ -7,7 +7,10 @@ import com.example.tute_backend.repository.UserRepository;
 import com.example.tute_backend.utils.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,7 +31,8 @@ import static com.example.tute_backend.config.oauth2.HttpCookieOAuth2Authorizati
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
-
+    @Autowired
+    AuthenticationManager authenticationManager;
     private AppProperties appProperties;
     @Autowired
     UserRepository accountRepository;
@@ -62,6 +66,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication);
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token",token)

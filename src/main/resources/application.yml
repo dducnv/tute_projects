@@ -1,4 +1,6 @@
  spring:
+  main:
+     allow-circular-references: true
   jackson:
     time-zone: Asia/Ho_Chi_Minh
   datasource:

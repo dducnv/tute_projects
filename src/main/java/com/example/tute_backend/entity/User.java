@@ -52,7 +52,6 @@ public class User {
     @JsonIgnore
     private LocalDateTime updatedAt;
     private UserStatus status;
-    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",

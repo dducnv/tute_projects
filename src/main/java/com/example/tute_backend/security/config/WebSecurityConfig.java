@@ -22,8 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.annotation.Resource;
 
-import static com.example.tute_backend.config.constant.routes.apiv1.AuthRoutes.*;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -55,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
-                        MY_INFO_PAM,
                         "/api/v1/test/**"
                 ).permitAll()
                 .anyRequest().authenticated()

@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public UserInfoDto myInfo(){
         User user = getUserFromToken();
+        System.out.println(user.getName());
        return toUserDTO(user);
     }
 
@@ -57,6 +58,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public User getUserFromToken(){
         Object userInfo = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(userInfo);
         return findUserByEmail(userInfo.toString());
     };
     @Override
