@@ -19,8 +19,8 @@ public class ApiController {
     UserServiceImpl userService;
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ResponseEntity<?> myTest() {
-        User user = userService.getUserFromToken();
-        return  ResponseEntity.ok(user);
+
+        return  ResponseEntity.ok("Hello Test");
     }
 
 }

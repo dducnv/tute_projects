@@ -26,6 +26,7 @@ public class DatabaseSeeder {
         if(!roleU.isPresent()){
             Role role1 = new Role();
             role1.setRoleName("USER");
+            roleRepository.save(role1);
         }
         if(!roleA.isPresent()){
             Role role2 = new Role();
