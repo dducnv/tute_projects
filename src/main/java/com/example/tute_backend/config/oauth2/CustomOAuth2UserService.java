@@ -87,14 +87,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
-        String username = SlugGenerating.toUsername(oAuth2UserInfo.getName());
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         user.setProviderId(oAuth2UserInfo.getId());
         user.setAvatar(oAuth2UserInfo.getImageUrl());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(oAuth2UserInfo.getEmail()+oAuth2UserInfo.getId()));
+        user.setUsername(GeneratingPassword.generatePassword(12));
+        user.setPassword(passwordEncoder.encode(oAuth2UserInfo.getEmail()+"tute_2023"));
         user.setStatus(UserStatus.ACTIVE);
         Role role = roleRepository.findByRoleName("USER");
         Set<Role> roleSet = new HashSet<>();

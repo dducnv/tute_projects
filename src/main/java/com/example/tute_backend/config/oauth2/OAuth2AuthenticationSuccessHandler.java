@@ -66,8 +66,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = jwtTokenUtil.generateToken(authentication);
+        final Authentication authenticationCustom = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authentication.getName(),
+                        authentication.getName()+"tute_2023"
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authenticationCustom);
+        final String token = jwtTokenUtil.generateToken(authenticationCustom);
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token",token)
                 .build().toUriString();

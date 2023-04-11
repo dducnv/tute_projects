@@ -17,9 +17,7 @@ public class SlugGenerating {
         return slug.toLowerCase(Locale.ENGLISH);
     }
 
-    public static  String toUsername(String fullName){
-        String slugName = toSlug(fullName);
-        System.out.println(slugName);
-        return slugName.substring(slugName.lastIndexOf("-")+1,slugName.length()).concat("-"+System.currentTimeMillis());
+    public static  String toUsername(String email){
+        return email.split("@")[0];
     }
 }
