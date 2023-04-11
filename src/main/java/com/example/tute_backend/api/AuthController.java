@@ -28,7 +28,7 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @RequestMapping(value = PREFIX_MY_INFO, method = RequestMethod.GET)
     public ResponseEntity<?> myInfo() {
         User user = userService.getUserFromToken();
