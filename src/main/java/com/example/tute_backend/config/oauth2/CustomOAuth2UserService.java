@@ -9,6 +9,7 @@ import com.example.tute_backend.entity.my_enum.UserStatus;
 import com.example.tute_backend.exception.OAuth2AuthenticationProcessingException;
 import com.example.tute_backend.repository.RoleRepository;
 import com.example.tute_backend.repository.UserRepository;
+import com.example.tute_backend.service.impl.UserServiceImpl;
 import com.example.tute_backend.utils.GeneratingPassword;
 import com.example.tute_backend.utils.SlugGenerating;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserServiceImpl userService;
     @Autowired
     RoleRepository roleRepository;
 
@@ -87,7 +90,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
-        Role role;
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         user.setProviderId(oAuth2UserInfo.getId());
         user.setAvatar(oAuth2UserInfo.getImageUrl());
@@ -96,13 +98,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setUsername(GeneratingPassword.generatePassword(12));
         user.setPassword(passwordEncoder.encode(oAuth2UserInfo.getEmail()+"tute_2023"));
         user.setStatus(UserStatus.ACTIVE);
-        if(oAuth2UserInfo.getEmail().split("@")[0].equals("ducbe2k2")){
-            role = roleRepository.findByRoleName("ADMIN");
-        }else {
-            role = roleRepository.findByRoleName("USER");
-        }
-        user.addRole(role);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        return userService.setRoleForUser(user);
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {

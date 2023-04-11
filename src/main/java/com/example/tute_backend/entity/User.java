@@ -53,7 +53,7 @@ public class User {
     @JsonIgnore
     private LocalDateTime updatedAt;
     private UserStatus status;
-    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

@@ -1,6 +1,7 @@
 package com.example.tute_backend.service.impl;
 
 import com.example.tute_backend.dto.*;
+import com.example.tute_backend.entity.Role;
 import com.example.tute_backend.entity.User;
 import com.example.tute_backend.repository.RoleRepository;
 import com.example.tute_backend.repository.UserRepository;
@@ -33,11 +34,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     RoleRepository roleRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+
     @Override
-    public UserInfoDto myInfo(){
+    public UserInfoDto myInfo() {
         User user = getUserFromToken();
         System.out.println(user.getName());
-       return toUserDTO(user);
+        return toUserDTO(user);
     }
 
 
@@ -52,19 +54,34 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         Optional<User> user = userRepository.findByEmail(email);
         return user.orElse(null);
     }
+
     public User findUserByUsernameOrEmail(String email, String username) {
-        User user = userRepository.findFirstByEmailOrUsername(email,username);
+        User user = userRepository.findFirstByEmailOrUsername(email, username);
         return user;
     }
 
 
-    public User getUserFromToken(){
+    public User setRoleForUser(User user) {
+        Role role;
+        if (user.getEmail().split("@")[0].equals("ducbe2k2")) {
+            role = roleRepository.findByRoleName("ADMIN");
+        } else {
+            role = roleRepository.findByRoleName("USER");
+        }
+        user.addRole(role);
+        return userRepository.save(user);
+    }
+
+    public User getUserFromToken() {
         Object userInfo = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(userInfo);
         return findUserByEmail(userInfo.toString());
-    };
+    }
+
+    ;
+
     @Override
-    public UserInfoDto toUserDTO(User user){
+    public UserInfoDto toUserDTO(User user) {
         return UserInfoDto.builder()
                 .avatar(user.getAvatar())
                 .name(user.getName())
@@ -74,6 +91,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                 .createdAt(user.getCreatedAt())
                 .build();
     }
+
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         System.out.println(user.getRoles());
@@ -82,9 +100,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         });
         return authorities;
     }
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(username);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));

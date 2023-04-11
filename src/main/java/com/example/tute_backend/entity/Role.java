@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-
 @Entity
 @Transactional
 @Setter
@@ -28,7 +27,7 @@ public class Role {
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER,cascade = CascadeType.MERGE )
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
     @Column(name = "updated_at")
     @UpdateTimestamp
