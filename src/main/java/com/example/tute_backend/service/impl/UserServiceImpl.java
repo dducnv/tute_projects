@@ -16,12 +16,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @Service(value = "userService")
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService, UserService {
     private final int expireTime = 60 * 1000 * 5;
@@ -70,7 +72,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .createdAt(user.getCreatedAt())
-                .roles(user.getRoles())
                 .build();
     }
     private Set<SimpleGrantedAuthority> getAuthority(User user) {

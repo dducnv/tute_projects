@@ -5,28 +5,32 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
-@Data
+
 @Entity
+@Transactional
+@Setter
+@Getter
 @Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
-    @Column(name="role_name",nullable = false,unique = true)
+    @Column(name="role_name",nullable = false)
     private String roleName;
-    @JsonIgnore
     @Column(name="description")
     private String description;
     @Column(name = "created_at")
     @CreationTimestamp
-    @JsonIgnore
     private LocalDateTime createdAt;
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER,cascade = CascadeType.MERGE )
+    private List<User> users = new ArrayList<>();
     @Column(name = "updated_at")
     @UpdateTimestamp
-    @JsonIgnore
     private LocalDateTime updatedAt;
 }

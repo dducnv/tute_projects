@@ -36,6 +36,5 @@ public class UserInfoDto {
     private String emailPublic;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<Role> roles = new HashSet<>();
 
 }
