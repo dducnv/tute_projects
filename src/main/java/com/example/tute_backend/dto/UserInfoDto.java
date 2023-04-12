@@ -1,6 +1,7 @@
 package com.example.tute_backend.dto;
 
 import com.example.tute_backend.entity.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -25,6 +26,7 @@ public class UserInfoDto {
     private boolean emailVerify;
     @NotBlank(message = "Vui lòng nhập username")
     @NotNull(message = "Vui lòng nhập username")
+    @JsonIgnore
     private String username;
     @NotBlank(message = "Vui lòng nhập email")
     @NotNull(message = "Vui lòng nhập eamil")

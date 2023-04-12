@@ -39,7 +39,7 @@
           google:
             clientId: 231594476721-09kl84i5027sobd67pnnmk5fke1hetfi.apps.googleusercontent.com
             clientSecret: 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
-            redirectUri: "https://tute-app-ypxpc.appengine.bfcplatform.vn/oauth2/callback/{registrationId}"
+            redirectUri: "http://localhost:8080/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile

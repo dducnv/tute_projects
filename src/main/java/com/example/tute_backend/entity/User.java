@@ -30,6 +30,7 @@ public class User {
     @Column(name="full_name",nullable = false)
     private String name;
     @Column(name="username",unique = true,nullable = false)
+    @JsonIgnore
     private String username;
     @JsonIgnore
     @Column(name = "email",unique = true,nullable = false)
@@ -54,6 +55,7 @@ public class User {
     private LocalDateTime updatedAt;
     private UserStatus status;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

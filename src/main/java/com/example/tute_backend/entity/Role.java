@@ -28,6 +28,7 @@ public class Role {
     @CreationTimestamp
     private LocalDateTime createdAt;
     @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
     @Column(name = "updated_at")
     @UpdateTimestamp

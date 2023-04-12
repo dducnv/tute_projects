@@ -8,7 +8,7 @@ public class GeneratingPassword {
     private static String specialCharacters = "_@";
     private static String numbers = "1673459082";
 
-    public static String generatePassword(int length){
+    public static char[] generatePassword(int length){
         String combinedChars = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
         Random random = new Random();
         char[] password = new char[length];
@@ -19,6 +19,6 @@ public class GeneratingPassword {
         for(int i = 4; i< length ; i++) {
             password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
         }
-        return password.toString();
+        return password;
     }
 }
